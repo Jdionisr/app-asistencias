@@ -1,45 +1,59 @@
+
 # asistencias-app
 
-This template should help get you started developing with Vue 3 in Vite.
+Aplicación web para la gestión de asistencias de estudiantes, desarrollada con Vue 3, Vite, Pinia, Vue Router y Supabase.
 
-## Recommended IDE Setup
+## Características principales
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- Inicio de sesión de usuarios (con Supabase)
+- Gestión de grupos y estudiantes
+- Registro y visualización de asistencias
+- **Altas de grupos y alumnos** desde la propia app
+- Exportación de datos
+- Interfaz moderna y responsiva
 
-## Type Support for `.vue` Imports in TS
+## Altas de grupos y alumnos
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+Desde el dashboard puedes acceder al apartado **Altas**:
 
-## Customize configuration
+- **Alta grupo:** Permite crear un nuevo grupo indicando solo el nombre.
+- **Alta alumno:** Permite crear un alumno, asociarlo a un grupo existente y registrar sus datos básicos.
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+Ambos formularios muestran mensajes de éxito o error tras cada alta.
 
-## Project Setup
+## Estructura del proyecto
+
+- `src/componentes/`: Componentes reutilizables (botones, formularios, filas de estudiantes, altas, etc.)
+- `src/vistas/`: Vistas principales (Dashboard, Login, Export, Group, Altas)
+- `src/lib/supabase.ts`: Configuración de Supabase
+- `src/stores/`: Estado global con Pinia
+- `src/router/`: Rutas de la aplicación
+
+## Instalación
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+## Scripts útiles
 
-```sh
-npm run dev
-```
+- **Desarrollo:** `npm run dev`
+- **Build producción:** `npm run build`
+- **Previsualización:** `npm run preview`
+- **Tests unitarios:** `npm run test:unit`
+- **Lint:** `npm run lint`
+- **Chequeo de tipos:** `npm run type-check`
 
-### Type-Check, Compile and Minify for Production
+## Tecnologías principales
 
-```sh
-npm run build
-```
+- [Vue 3](https://vuejs.org/)
+- [Vite](https://vitejs.dev/)
+- [Pinia](https://pinia.vuejs.org/)
+- [Vue Router](https://router.vuejs.org/)
+- [Supabase](https://supabase.com/)
+- [Vitest](https://vitest.dev/)
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+## Notas
 
-```sh
-npm run test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+- Requiere Node.js 20.19.0 o superior.
+- Configura tus credenciales de Supabase en `src/lib/supabase.ts`.
