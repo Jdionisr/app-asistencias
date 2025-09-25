@@ -27,10 +27,9 @@
     </table>
 
     <!-- Botón Back -->
-   <div class="action-buttons">
-    <button class="back-btn" @click="goBack">Volver</button>
-  </div>
-
+    <div class="action-buttons">
+      <button class="back-btn" @click="goBack">Volver</button>
+    </div>
   </div>
 </template>
 
@@ -130,12 +129,16 @@ function logout() { router.push({ name: 'login' }) }
 </script>
 
 <style scoped>
+@import "@/assets/theme.css";
+
 .group-page {
   padding: 20px;
   text-align: center;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background: var(--color-background);
+  color: var(--color-on-surface);
 }
 
 /* Cabecera */
@@ -147,67 +150,86 @@ function logout() { router.push({ name: 'login' }) }
   margin-bottom: 15px;
 }
 
-.header h2 { flex: 1; text-align: center; }
+.header h2 {
+  flex: 1;
+  text-align: center;
+  color: var(--color-primary-dark);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
 .logout-btn {
   position: absolute;
   right: 20px;
   padding: 6px 12px;
   border: none;
   border-radius: 6px;
-  background-color: #f87171;
-  color: white;
+  background-color: var(--color-error);
+  color: var(--color-on-primary);
   font-weight: bold;
   cursor: pointer;
   transition: 0.2s;
 }
-.logout-btn:hover { background-color: #ef4444; }
+.logout-btn:hover {
+  background-color: var(--color-error-dark);
+}
 
 /* Tabla alumnos */
 .students-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
-  table-layout: fixed; /* columnas iguales */
+  table-layout: fixed;
+  background: var(--color-surface);
+  border-radius: 12px;
+  box-shadow: 0 2px 12px 0 rgba(37, 99, 235, 0.06);
+  overflow: hidden;
 }
 .students-table th, .students-table td {
-  width: 33%; /* 3 columnas del mismo tamaño */
+  width: 33%;
   padding: 12px 15px;
   border-bottom: 1px solid #e5e7eb;
   font-size: 16px;
-  color: #374151;
-  text-align: center; /* texto centrado */
+  color: var(--color-on-surface);
+  text-align: center;
 }
 .students-table th {
-  background-color: #f3f4f6;
+  background-color: var(--color-primary-light);
+  color: var(--color-on-primary);
+  font-weight: bold;
+  font-size: 1.1em;
 }
 
 /* Botones Back y Export */
 .action-buttons {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   margin-top: 30px;
   padding: 0 20%;
 }
 
-.back-btn, .export-btn, .save-btn {
-  padding: 8px 16px;
-  border: none;
-  border-radius: 6px;
-  font-weight: bold;
-  color: white;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-/* Colores */
 .back-btn {
-  background-color: #93c5fd; /* azul claro */
+  background-color: var(--color-primary-light);
+  color: var(--color-on-primary);
+  padding: 10px 24px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
 }
-.back-btn:hover { background-color: #3b82f6; }
-
-.save-btn {
-  background-color: #22c55e; /* verde */
+.back-btn:hover {
+  background-color: var(--color-primary-dark);
 }
-.save-btn:hover { background-color: #16a34a; }
 
+/* Ajuste para filas de la tabla */
+.students-table tr {
+  transition: background 0.2s, transform 0.2s;
+}
+.students-table tr:hover {
+  background-color: var(--color-surface);
+  transform: translateY(-2px);
+}
 </style>

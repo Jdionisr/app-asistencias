@@ -1,0 +1,15 @@
+:root {
+  --color-primary: #2563eb;      /* Azul principal */
+  --color-primary-light: #3b82f6;
+  --color-primary-dark: #1e40af;
+  --color-background: #ffffff;   /* Fondo blanco */
+  --color-surface: #f3f4f6;     /* Gris claro para tarjetas/fondos secundarios */
+  --color-secondary: #6b7280;   /* Gris para textos secundarios */
+  --color-success: #22c55e;     /* Verde para éxito */
+  --color-success-dark: #16a34a;
+  --color-error: #ef4444;       /* Rojo para error */
+  --color-error-dark: #b91c1c;
+  --color-warning: #f59e42;     /* Naranja para advertencias */
+  --color-on-primary: #ffffff;  /* Texto sobre azul */
+  --color-on-surface: #1f2937;  /* Texto sobre gris claro */
+}

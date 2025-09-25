@@ -98,6 +98,8 @@ async function logout() {
 </script>
 
 <style scoped>
+@import "@/assets/theme.css";
+
 .dashboard {
   padding: 20px;
   text-align: center;
@@ -105,6 +107,8 @@ async function logout() {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background: var(--color-background);
+  color: var(--color-on-surface);
 }
 
 /* Logout arriba a la derecha */
@@ -115,13 +119,13 @@ async function logout() {
   padding: 6px 12px;
   border: none;
   border-radius: 6px;
-  background-color: #f87171;
-  color: white;
+  background-color: var(--color-error);
+  color: var(--color-on-primary);
   font-weight: bold;
   cursor: pointer;
   transition: 0.2s;
 }
-.logout-btn:hover { background-color: #ef4444; }
+.logout-btn:hover { background-color: var(--color-error-dark); }
 
 .group-list {
   display: flex;
@@ -134,14 +138,20 @@ async function logout() {
 .group-card {
   padding: 20px 30px;
   border-radius: 10px;
-  background-color: #e0e7ff;
+  background-color: var(--color-surface);
   cursor: pointer;
   font-weight: bold;
   transition: 0.2s;
   width: 220px;
   text-align: center;
+  color: var(--color-primary-dark);
+  border: 2px solid var(--color-primary-light);
 }
-.group-card:hover { background-color: #c7d2fe; transform: translateY(-2px); }
+.group-card:hover {
+  background-color: var(--color-primary-light);
+  color: var(--color-on-primary);
+  transform: translateY(-2px);
+}
 
 .export-button-container { margin: 40px 0; }
 
@@ -149,13 +159,13 @@ async function logout() {
   padding: 8px 16px;
   border: none;
   border-radius: 6px;
-  background-color: #34d399;
-  color: white;
+  background-color: var(--color-success);
+  color: var(--color-on-primary);
   font-weight: bold;
   cursor: pointer;
   transition: 0.2s;
 }
-.report-btn:hover { background-color: #10b981; }
+.report-btn:hover { background-color: var(--color-success-dark); }
 
 .dashboard-actions {
   display: flex;
@@ -164,8 +174,8 @@ async function logout() {
   margin-top: 40px;
 }
 .altas-btn {
-  background: #f59e42;
-  color: white;
+  background: var(--color-primary);
+  color: var(--color-on-primary);
   border: none;
   border-radius: 6px;
   padding: 10px 20px;
@@ -174,8 +184,14 @@ async function logout() {
   transition: background 0.2s;
 }
 .altas-btn:hover {
-  background: #ea580c;
+  background: var(--color-primary-dark);
 }
-.empty { color: #6b7280; margin-top: 20px; }
-.error { color: #b91c1c; margin-top: 10px; }
+.empty {
+  color: var(--color-secondary);
+  margin-top: 20px;
+}
+.error {
+  color: var(--color-error-dark);
+  margin-top: 10px;
+}
 </style>

@@ -4,7 +4,7 @@
 
     <div class="form-group">
       <label for="group">Selecciona un grupo:</label>
-      <select id="group" v-model="selectedGroup">
+      <select id="group" v-model="selectedGroup" class="export-input">
         <option value="">-- Selecciona un grupo --</option>
         <option v-for="group in groups" :key="group.id" :value="group.id">
           {{ group.nombre }}
@@ -14,13 +14,13 @@
 
     <div class="form-group">
       <label for="month">Selecciona un mes:</label>
-      <input type="month" id="month" v-model="selectedMonth" />
+      <input type="month" id="month" v-model="selectedMonth" class="export-input" />
     </div>
 
-    <!-- Botón para volver al dashboard -->
-    <button class="back-btn" @click="goToDashboard">← Volver al Dashboard</button>
-
-    <button class="export-btn" @click="generateReport">Generar Informe</button>
+    <div class="export-actions">
+      <button class="back-btn" @click="goToDashboard">← Volver al Dashboard</button>
+      <button class="export-btn" @click="generateReport">Generar Informe</button>
+    </div>
 
     <!-- Mensajes de información -->
     <div v-if="message" class="info-message">
@@ -40,7 +40,15 @@
           <tr v-for="student in reportData" :key="student.id">
             <td>{{ student.nombre }}</td>
             <td v-for="day in reportDays" :key="day">
-              {{ student.attendance[day] === true ? 'Presente' : student.attendance[day] === false ? 'Falta' : 'Sin registro' }}
+              <span
+                :class="{
+                  presente: student.attendance[day] === true,
+                  falta: student.attendance[day] === false,
+                  sinregistro: student.attendance[day] === undefined
+                }"
+              >
+                {{ student.attendance[day] === true ? 'Presente' : student.attendance[day] === false ? 'Falta' : 'Sin registro' }}
+              </span>
             </td>
           </tr>
         </tbody>
@@ -143,21 +151,139 @@ async function generateReport() {
 </script>
 
 <style scoped>
-.export-page { padding: 20px; text-align: center }
-.form-group { margin: 15px 0 }
-label { display: block; margin-bottom: 5px; font-weight: bold }
-select, input[type="month"] { padding: 6px 10px; border-radius: 6px; border: 1px solid #ccc; min-width: 220px }
+@import "@/assets/theme.css";
 
-.export-btn { margin-top: 20px; padding: 8px 16px; border: none; border-radius: 6px; background-color: #34d399; color: white; font-weight: bold; cursor: pointer; transition: 0.2s }
-.export-btn:hover { background-color: #16a34a }
+.export-page {
+  padding: 32px 12px 32px 12px;
+  min-height: 100vh;
+  background: var(--color-background);
+  color: var(--color-on-surface);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-.back-btn { margin-top: 15px; padding: 6px 12px; border: none; border-radius: 6px; background-color: #f87171; color: white; font-weight: bold; cursor: pointer; transition: 0.2s }
-.back-btn:hover { background-color: #ef4444 }
+h2 {
+  color: var(--color-primary-dark);
+  margin-bottom: 28px;
+  text-align: center;
+}
 
-.info-message { margin-top: 20px; font-weight: bold; color: #f59e0b }
+.form-group {
+  margin: 18px 0 0 0;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
 
-.report-table-container { margin-top: 30px; overflow-x: auto }
-.report-table { border-collapse: collapse; width: 100%; min-width: 600px }
-.report-table th, .report-table td { border: 1px solid #ccc; padding: 8px; text-align: center }
-.report-table th { background-color: #f3f4f6 }
+label {
+  margin-bottom: 6px;
+  font-weight: bold;
+  color: var(--color-primary-dark);
+}
+
+.export-input {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1.5px solid var(--color-primary-light);
+  font-size: 1rem;
+  background: #fff;
+  color: var(--color-on-surface);
+  transition: border 0.2s;
+  width: 100%;
+  margin-bottom: 2px;
+}
+.export-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.export-actions {
+  display: flex;
+  gap: 16px;
+  margin: 32px 0 18px 0;
+  justify-content: center;
+}
+
+.export-btn {
+  background: var(--color-success);
+  color: var(--color-on-primary);
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.export-btn:hover {
+  background: var(--color-success-dark);
+}
+
+.back-btn {
+  background: var(--color-error);
+  color: var(--color-on-primary);
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.back-btn:hover {
+  background: var(--color-error-dark);
+}
+
+.info-message {
+  margin-top: 20px;
+  font-weight: bold;
+  color: var(--color-warning);
+  text-align: center;
+}
+
+.report-table-container {
+  margin-top: 30px;
+  overflow-x: auto;
+  width: 100%;
+  max-width: 900px;
+}
+
+.report-table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 600px;
+  background: var(--color-surface);
+  border-radius: 12px;
+  box-shadow: 0 2px 12px 0 rgba(37, 99, 235, 0.06);
+  overflow: hidden;
+}
+
+.report-table th, .report-table td {
+  border: 1px solid #e5e7eb;
+  padding: 8px;
+  text-align: center;
+  font-size: 1rem;
+  color: var(--color-on-surface);
+}
+
+.report-table th {
+  background-color: var(--color-primary-light);
+  color: var(--color-on-primary);
+  font-weight: bold;
+}
+
+.presente {
+  color: var(--color-success-dark);
+  font-weight: bold;
+}
+.falta {
+  color: var(--color-error-dark);
+  font-weight: bold;
+}
+.sinregistro {
+  color: var(--color-secondary);
+}
 </style>
