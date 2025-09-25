@@ -26,10 +26,9 @@
       </tbody>
     </table>
 
-    <!-- Botones Back y Export distribuidos -->
+    <!-- Botón Back -->
    <div class="action-buttons">
     <button class="back-btn" @click="goBack">Volver</button>
-    <button class="save-btn" @click="saveAttendance">Guardar asistencias</button>
   </div>
 
   </div>
@@ -71,43 +70,62 @@ onMounted(async () => {
     .from('alumnos')
     .select('id, nombre, apellidos, fecha_nac')
     .eq('grupo_id', groupId)
-  if (studentsError) console.error('❌ Error cargando alumnos:', studentsError.message)
-  else students.value = studentsData || []
+  if (studentsError) {
+    console.error('❌ Error cargando alumnos:', studentsError.message)
+    students.value = []
+    return
+  }
+  students.value = studentsData || []
+
+  // Cargar asistencias existentes para la fecha actual
+  const { data: asistenciasData, error: asistenciasError } = await supabase
+    .from('asistencias')
+    .select('alumno_id, presente')
+    .eq('fecha', currentDate.value)
+    .in('alumno_id', students.value.map(s => s.id))
+  if (asistenciasError) {
+    console.error('❌ Error cargando asistencias:', asistenciasError.message)
+    return
+  }
+  // Mapear asistencias a los alumnos
+  for (const asistencia of asistenciasData || []) {
+    const alumno = students.value.find(s => s.id === asistencia.alumno_id)
+    if (alumno) {
+      if (!alumno.attendance) alumno.attendance = {}
+      alumno.attendance[currentDate.value] = asistencia.presente
+    }
+  }
 })
 
-function handleAttendanceChanged(studentId: string, date: string, present: boolean) {
+async function handleAttendanceChanged(studentId: string, date: string, present: boolean) {
   const student = students.value.find(s => s.id === studentId)
   if (!student) return
   if (!student.attendance) student.attendance = {}
   student.attendance[date] = present
   console.log('✅ Asistencia actualizada:', student.nombre, date, present)
+
+  // Guardar asistencia individual en Supabase
+  const { error } = await supabase
+    .from('asistencias')
+    .upsert([
+      {
+        alumno_id: studentId,
+        fecha: date,
+        presente: present
+      }
+    ], { onConflict: 'alumno_id,fecha' })
+
+  if (error) {
+    alert('Error guardando asistencia: ' + error.message)
+    console.error('❌ Error guardando asistencia:', error.message)
+  } else {
+    // Opcional: notificación visual rápida
+    // alert('Asistencia guardada')
+  }
 }
 
 function goBack() { router.back() }
 function logout() { router.push({ name: 'login' }) }
-async function saveAttendance() {
-  if (!students.value.length) return
-
-  // Preparamos los datos para insertar
-  const records = students.value.map(s => ({
-    alumno_id: s.id,
-    fecha: currentDate.value,
-    presente: s.attendance?.[currentDate.value] ?? false
-  }))
-
-  // Inserción en Supabase con "upsert" para evitar duplicados
-  const { data, error } = await supabase
-     .from('asistencias')
-     .upsert(records, { onConflict: 'alumno_id,fecha' })
-
-  if (error) {
-    console.error('❌ Error guardando asistencias:', error.message)
-    alert('Error guardando asistencias: ' + error.message)
-  } else {
-    console.log('✅ Asistencias guardadas:', data)
-    alert('Asistencias guardadas correctamente')
-  }
-}
 
 </script>
 
