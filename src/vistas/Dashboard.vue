@@ -24,8 +24,9 @@
       No tienes grupos aún. Crea uno en el panel de Supabase o usa el editor de tablas.
     </div>
 
-    <!-- Botón de informes centrado abajo -->
-    <div class="export-button-container">
+    <!-- Botones de acciones centrados abajo -->
+    <div class="dashboard-actions">
+      <button class="altas-btn" @click="goToAltas">Altas</button>
       <button class="report-btn" @click="goToExport">Informes</button>
     </div>
   </div>
@@ -79,6 +80,11 @@ onMounted(async () => {
 
 function openGroup(id: string) {
   router.push({ name: 'group', params: { id } })
+}
+
+
+function goToAltas() {
+  router.push({ name: 'altas' })
 }
 
 function goToExport() {
@@ -151,6 +157,25 @@ async function logout() {
 }
 .report-btn:hover { background-color: #10b981; }
 
+.dashboard-actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 40px;
+}
+.altas-btn {
+  background: #f59e42;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.altas-btn:hover {
+  background: #ea580c;
+}
 .empty { color: #6b7280; margin-top: 20px; }
 .error { color: #b91c1c; margin-top: 10px; }
 </style>
