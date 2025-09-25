@@ -59,7 +59,9 @@ async function handleLogin() {
   width: 100vw;
   background: var(--color-background);
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: flex-start; /* 👈 Se alinea arriba */
+  padding-top: 60px;       /* 👈 Ajusta este valor según se vea bien */
 }
+
 </style>
