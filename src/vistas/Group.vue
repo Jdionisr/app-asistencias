@@ -97,8 +97,8 @@ async function saveAttendance() {
 
   // Inserción en Supabase con "upsert" para evitar duplicados
   const { data, error } = await supabase
-    .from('asistencias')
-    .upsert(records, { onConflict: ['alumno_id', 'fecha'] })
+     .from('asistencias')
+     .upsert(records, { onConflict: 'alumno_id,fecha' })
 
   if (error) {
     console.error('❌ Error guardando asistencias:', error.message)

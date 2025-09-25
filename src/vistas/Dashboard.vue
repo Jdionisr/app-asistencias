@@ -39,7 +39,7 @@ import { supabase } from '@/lib/supabase'
 // Modelo tal cual viene de la BBDD
 type GroupFromDB = { id: string; nombre: string }
 
-const groups = ref<GroupFromDB[]>([])
+const groups = ref<Array<GroupFromDB>>([])
 const loading = ref(false)
 const error = ref('')
 
@@ -57,7 +57,7 @@ onMounted(async () => {
   error.value = ''
   try {
     const { data, error: err } = await supabase
-      .from<GroupFromDB>('grupos')
+      .from('grupos')
       .select('id, nombre')
 
     console.log("📦 Respuesta supabase:", { data, err })

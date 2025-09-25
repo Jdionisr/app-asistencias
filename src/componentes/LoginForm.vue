@@ -4,14 +4,25 @@
     <input
       placeholder="Email"
       :value="email"
-      @input="$emit('update:email', $event.target.value)"
+      @input="$emit('update:email', ($event.target as HTMLInputElement)?.value)"
     />
     <input
       placeholder="Password"
       type="password"
       :value="password"
-      @input="$emit('update:password', $event.target.value)"
+      @input="$emit('update:password', ($event.target as HTMLInputElement)?.value)"
     />
+      <input
+        placeholder="Email"
+        :value="email"
+        @input="$emit('update:email', ($event.target as HTMLInputElement)?.value)"
+      />
+      <input
+        placeholder="Password"
+        type="password"
+        :value="password"
+        @input="$emit('update:password', ($event.target as HTMLInputElement)?.value)"
+      />
     <button @click="$emit('submit')" :disabled="loading">
       {{ loading ? 'Cargando...' : 'Login' }}
     </button>
