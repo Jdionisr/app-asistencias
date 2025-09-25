@@ -1,22 +1,29 @@
 <template>
-  <div class="login-container">
-    <h2>Login</h2>
+  <form class="login-form-container" @submit.prevent="$emit('submit')">
+    <h2 class="login-title">Iniciar sesión</h2>
     <input
-      placeholder="Email"
+      placeholder="Correo electrónico"
       :value="email"
       @input="$emit('update:email', ($event.target as HTMLInputElement)?.value)"
+      class="login-input"
+      type="email"
+      autocomplete="username"
+      required
     />
     <input
-      placeholder="Password"
+      placeholder="Contraseña"
       type="password"
       :value="password"
       @input="$emit('update:password', ($event.target as HTMLInputElement)?.value)"
+      class="login-input"
+      autocomplete="current-password"
+      required
     />
-    <button @click="$emit('submit')" :disabled="loading">
-      {{ loading ? 'Cargando...' : 'Login' }}
+    <button type="submit" :disabled="loading" class="login-btn">
+      {{ loading ? 'Entrando...' : 'Entrar' }}
     </button>
-    <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
-  </div>
+    <p v-if="errorMessage" class="login-error">{{ errorMessage }}</p>
+  </form>
 </template>
 
 <script setup lang="ts">
@@ -31,47 +38,71 @@ defineProps<{
 </script>
 
 <style scoped>
-.login-container {
-  width: 300px;
-  margin: 100px auto;
-  padding: 30px;
-  border-radius: 10px;
-  background-color: #f0f4f8;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+@import "@/assets/theme.css";
+
+.login-form-container {
+  width: 100%;
+  max-width: 350px;
+  margin: 0 auto;
+  padding: 36px 32px 28px 32px;
+  border-radius: 16px;
+  background: var(--color-surface);
+  box-shadow: 0 4px 24px 0 rgba(37, 99, 235, 0.10);
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
+  align-items: stretch;
 }
 
-input {
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+.login-title {
+  color: var(--color-primary-dark);
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
 }
 
-button {
-  padding: 10px;
-  border-radius: 5px;
+.login-input {
+  padding: 12px 16px;
+  border: 1.5px solid var(--color-primary-light);
+  border-radius: 8px;
+  font-size: 1rem;
+  background: #fff;
+  color: var(--color-on-surface);
+  transition: border 0.2s;
+  margin-bottom: 2px;
+}
+.login-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.login-btn {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
   border: none;
-  background-color: #4f46e5;
-  color: white;
+  border-radius: 8px;
+  padding: 12px 0;
   font-weight: bold;
+  font-size: 1.08rem;
   cursor: pointer;
-  transition: 0.2s;
+  transition: background 0.2s;
+  margin-top: 8px;
 }
-
-button:disabled {
-  background-color: #a5b4fc;
+.login-btn:disabled {
+  background: var(--color-primary-light);
   cursor: not-allowed;
 }
-
-button:hover:enabled {
-  background-color: #4338ca;
+.login-btn:hover:enabled {
+  background: var(--color-primary-dark);
 }
 
-.error-message {
-  color: #f87171;
-  font-weight: bold;
+.login-error {
+  color: var(--color-error-dark);
+  margin-top: 6px;
+  font-size: 1em;
   text-align: center;
+  font-weight: 500;
 }
 </style>

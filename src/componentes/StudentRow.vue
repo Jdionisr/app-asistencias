@@ -47,12 +47,14 @@ watch(
 </script>
 
 <style scoped>
+@import "@/assets/theme.css";
+
 .student-row {
   transition: background 0.2s, transform 0.2s;
 }
 
 .student-row:hover {
-  background-color: #f3f4f6; /* gris claro */
+  background-color: var(--color-surface);
   transform: translateY(-2px);
 }
 
@@ -60,7 +62,7 @@ td {
   padding: 12px 15px;
   border-bottom: 1px solid #e5e7eb;
   font-size: 16px;
-  color: #374151;
+  color: var(--color-on-surface);
 }
 
 /* Estilo del checkbox */
@@ -89,13 +91,13 @@ td {
   left: 0;
   height: 20px;
   width: 20px;
-  background-color: #e0e7ff; /* azul suave */
+  background-color: var(--color-primary-light);
   border-radius: 4px;
   transition: background-color 0.2s, transform 0.2s;
 }
 
 .checkbox-container input:checked ~ .checkmark {
-  background-color: #34d399; /* verde */
+  background-color: var(--color-success);
 }
 
 .checkmark:after {
@@ -117,5 +119,4 @@ td {
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
 }
-
 </style>

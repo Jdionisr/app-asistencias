@@ -49,14 +49,23 @@ function onAlumnoCreado() {
 </script>
 
 <style scoped>
+@import "@/assets/theme.css";
+
 .altas {
   max-width: 500px;
   margin: 40px auto;
   padding: 30px;
-  background: #f9fafb;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  background: var(--color-surface);
+  border-radius: 16px;
+  box-shadow: 0 4px 24px 0 rgba(37, 99, 235, 0.10);
 }
+
+h2 {
+  color: var(--color-primary-dark);
+  text-align: center;
+  margin-bottom: 24px;
+}
+
 .altas-tabs {
   display: flex;
   gap: 10px;
@@ -64,32 +73,37 @@ function onAlumnoCreado() {
 }
 .altas-tabs button {
   flex: 1;
-  padding: 10px;
+  padding: 12px 0;
   border: none;
-  border-radius: 6px;
-  background: #e5e7eb;
+  border-radius: 8px;
+  background: var(--color-background);
+  color: var(--color-primary-dark);
   font-weight: bold;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.2s, color 0.2s;
+  font-size: 1rem;
+  box-shadow: 0 1px 2px 0 rgba(37, 99, 235, 0.04);
 }
 .altas-tabs button.active {
-  background: #3b82f6;
-  color: white;
+  background: var(--color-primary);
+  color: var(--color-on-primary);
 }
 
 .volver-btn {
   margin-top: 30px;
-  background: #93c5fd;
-  color: #1e293b;
+  background: var(--color-primary-light);
+  color: var(--color-on-primary);
   border: none;
-  border-radius: 6px;
-  padding: 10px 20px;
+  border-radius: 8px;
+  padding: 12px 0;
   font-weight: bold;
+  font-size: 1rem;
+  width: 100%;
   cursor: pointer;
   transition: background 0.2s;
 }
 .volver-btn:hover {
-  background: #3b82f6;
-  color: white;
+  background: var(--color-primary-dark);
+  color: var(--color-on-primary);
 }
 </style>

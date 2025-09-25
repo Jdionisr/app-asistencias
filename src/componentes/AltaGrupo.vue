@@ -3,7 +3,7 @@
     <h3>Alta grupo</h3>
     <input v-model="nombre" placeholder="Nombre del grupo" required />
     <button type="submit">Crear grupo</button>
-    <p v-if="mensaje" :class="{ error: error }">{{ mensaje }}</p>
+    <p v-if="mensaje" :class="{ error: error, success: !error }">{{ mensaje }}</p>
   </form>
 </template>
 
@@ -32,26 +32,61 @@ async function crearGrupo() {
 </script>
 
 <style scoped>
+@import "@/assets/theme.css";
+
 .alta-grupo {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
+  background: var(--color-background);
+  border-radius: 12px;
+  padding: 24px 20px;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.06);
 }
+
+.alta-grupo h3 {
+  color: var(--color-primary-dark);
+  text-align: center;
+  margin-bottom: 8px;
+}
+
 .alta-grupo input {
-  padding: 8px;
-  border-radius: 6px;
-  border: 1px solid #d1d5db;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1.5px solid var(--color-primary-light);
+  font-size: 1rem;
+  background: #fff;
+  color: var(--color-on-surface);
+  transition: border 0.2s;
 }
+.alta-grupo input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
 .alta-grupo button {
-  background: #22c55e;
-  color: white;
+  background: var(--color-success);
+  color: var(--color-on-primary);
   border: none;
-  border-radius: 6px;
-  padding: 8px 0;
+  border-radius: 8px;
+  padding: 12px 0;
   font-weight: bold;
+  font-size: 1rem;
   cursor: pointer;
+  transition: background 0.2s;
 }
+.alta-grupo button:hover {
+  background: var(--color-success-dark);
+}
+
 .alta-grupo .error {
-  color: #dc2626;
+  color: var(--color-error-dark);
+  text-align: center;
+  font-weight: 500;
+}
+.alta-grupo .success {
+  color: var(--color-success-dark);
+  text-align: center;
+  font-weight: 500;
 }
 </style>

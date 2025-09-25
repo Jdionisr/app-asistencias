@@ -9,7 +9,7 @@
       <option v-for="g in grupos" :key="g.id" :value="g.id">{{ g.nombre }}</option>
     </select>
     <button type="submit">Crear alumno</button>
-    <p v-if="mensaje" :class="{ error: error }">{{ mensaje }}</p>
+    <p v-if="mensaje" :class="{ error: error, success: !error }">{{ mensaje }}</p>
   </form>
 </template>
 
@@ -52,26 +52,63 @@ async function crearAlumno() {
 </script>
 
 <style scoped>
+@import "@/assets/theme.css";
+
 .alta-alumno {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
+  background: var(--color-background);
+  border-radius: 12px;
+  padding: 24px 20px;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.06);
 }
-.alta-alumno input, .alta-alumno select {
-  padding: 8px;
-  border-radius: 6px;
-  border: 1px solid #d1d5db;
+
+.alta-alumno h3 {
+  color: var(--color-primary-dark);
+  text-align: center;
+  margin-bottom: 8px;
 }
+
+.alta-alumno input,
+.alta-alumno select {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1.5px solid var(--color-primary-light);
+  font-size: 1rem;
+  background: #fff;
+  color: var(--color-on-surface);
+  transition: border 0.2s;
+}
+.alta-alumno input:focus,
+.alta-alumno select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
 .alta-alumno button {
-  background: #3b82f6;
-  color: white;
+  background: var(--color-primary);
+  color: var(--color-on-primary);
   border: none;
-  border-radius: 6px;
-  padding: 8px 0;
+  border-radius: 8px;
+  padding: 12px 0;
   font-weight: bold;
+  font-size: 1rem;
   cursor: pointer;
+  transition: background 0.2s;
 }
+.alta-alumno button:hover {
+  background: var(--color-primary-dark);
+}
+
 .alta-alumno .error {
-  color: #dc2626;
+  color: var(--color-error-dark);
+  text-align: center;
+  font-weight: 500;
+}
+.alta-alumno .success {
+  color: var(--color-success-dark);
+  text-align: center;
+  font-weight: 500;
 }
 </style>

@@ -1,11 +1,15 @@
 <template>
-  <LoginForm
-    v-model:email="email"
-    v-model:password="password"
-    :loading="loading"
-    :errorMessage="errorMessage"
-    @submit="handleLogin"
-  />
+  <div class="login-bg">
+    <LoginForm
+      :email="email"
+      :password="password"
+      :loading="loading"
+      :errorMessage="errorMessage"
+      @update:email="email = $event"
+      @update:password="password = $event"
+      @submit="handleLogin"
+    />
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -37,7 +41,6 @@ async function handleLogin() {
   loading.value = false
 
   if (error) {
-    console.error('Error login:', error)
     errorMessage.value = 'Email o contraseña incorrectos'
     return
   }
@@ -47,3 +50,16 @@ async function handleLogin() {
   }
 }
 </script>
+
+<style scoped>
+@import "@/assets/theme.css";
+
+.login-bg {
+  min-height: 100vh;
+  width: 100vw;
+  background: var(--color-background);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+</style>
