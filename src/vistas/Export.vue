@@ -54,14 +54,48 @@
         </tbody>
       </table>
     </div>
+    <!-- Botón para generar PDF -->
+    <div v-if="reportData.length && reportDays.length" style="margin-top: 32px; text-align: center;">
+      <button class="export-btn" @click="generarPDF">Generar PDF</button>
+      <!-- Renderizado oculto para exportar a PDF -->
+      <div style="position: absolute; left: -9999px; top: 0;">
+        <RegistroAsistenciaPDF
+          :grupo="selectedGroupName"
+          :monitor="monitorName"
+          :dias="reportDays"
+          :alumnos="reportData"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
 import { supabase } from '@/lib/supabase'
+import RegistroAsistenciaPDF from '@/componentes/RegistroAsistenciaPDF.vue'
+import html2pdf from 'html2pdf.js'
 
+// Computed para el nombre del grupo y monitor (ajusta según tus datos)
+const selectedGroupName = computed(() => {
+  const group = groups.value.find(g => g.id === selectedGroup.value)
+  return group ? group.nombre : ''
+})
+const monitorName = ref('') // Puedes rellenar dinámicamente si tienes el dato
+
+function generarPDF() {
+  // Serializar los datos para pasarlos por query
+  router.push({
+    name: 'pdf',
+    query: {
+      grupoId: selectedGroup.value,
+      monitor: monitorName.value,
+      dias: JSON.stringify(reportDays.value),
+      alumnos: JSON.stringify(reportData.value)
+    }
+  })
+}
 interface Group { id: string; nombre: string }
 interface Student { id: string; nombre: string; apellidos: string }
 
