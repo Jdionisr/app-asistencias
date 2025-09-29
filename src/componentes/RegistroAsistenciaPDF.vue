@@ -6,7 +6,6 @@
         HOJA DE ASISTENCIA PROGRAMA ACTIVIDADES FÍSICAS Y DEPORTIVAS MUNICIPALES CÁCERES
       </div>
     </div>
-    {{ monitor }}
     <table class="asistencia-table">
       <tr>
         <td class="label">Nombre del curso</td>
