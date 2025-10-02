@@ -25,7 +25,7 @@
         <td colspan="25" class="dias-label">Nº de días de asistencias</td>
       </tr>
       <tr v-for="i in filas" :key="i">
-        <td class="alumno">{{ alumnos[i]?.nombre || '' }}</td>
+        <td class="alumno">{{ alumnos[i]?.nombre && alumnos[i]?.apellidos ? `${alumnos[i].nombre} ${alumnos[i].apellidos}` : '' }}</td>
         <td v-for="n in columnas" :key="n">
           <span v-if="alumnos[i]?.attendance && dias[n] && alumnos[i].attendance[dias[n]] === false">F</span>
           <span v-else></span>
