@@ -105,11 +105,13 @@ onMounted(async () => {
   if (groupError) console.error('❌ Error cargando grupo:', groupError.message)
   else groupName.value = groupData?.nombre || 'Sin nombre'
 
-  // Cargar alumnos del grupo
+  // Cargar alumnos del grupo ordenados por apellidos y luego por nombre
   const { data: studentsData, error: studentsError } = await supabase
     .from('alumnos')
     .select('id, nombre, apellidos, fecha_nac')
     .eq('grupo_id', groupId)
+    .order('apellidos', { ascending: true })
+    .order('nombre', { ascending: true })
   if (studentsError) {
     console.error('❌ Error cargando alumnos:', studentsError.message)
     students.value = []
