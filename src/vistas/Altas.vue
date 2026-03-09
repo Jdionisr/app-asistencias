@@ -32,15 +32,24 @@ const grupos = ref<{ id: string; nombre: string }[]>([])
 
 onMounted(async () => {
   // Cargar grupos para el select de AltaAlumno
-  const { data, error } = await supabase.from('grupos').select('id, nombre')
+  const { data, error } = await supabase
+    .from('grupos')
+    .select('id, nombre')
+    .eq('uid_mon', '5d841a66-0baf-44c7-98d1-e4ee8968db6c')
+    .order('nombre', { ascending: true })
   if (!error && data) grupos.value = data
 })
 
 function onGrupoCreado() {
   // Refrescar lista de grupos tras crear uno nuevo
-  supabase.from('grupos').select('id, nombre').then(({ data, error }) => {
-    if (!error && data) grupos.value = data
-  })
+  supabase
+    .from('grupos')
+    .select('id, nombre')
+    .eq('uid_mon', '5d841a66-0baf-44c7-98d1-e4ee8968db6c')
+    .order('nombre', { ascending: true })
+    .then(({ data, error }) => {
+      if (!error && data) grupos.value = data
+    })
 }
 
 function onAlumnoCreado() {
