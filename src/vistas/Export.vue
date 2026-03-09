@@ -116,7 +116,11 @@ function goToDashboard() {
 
 // Cargar grupos al iniciar
 async function loadGroups() {
-  const { data, error } = await supabase.from('grupos').select('id, nombre')
+  const { data, error } = await supabase
+    .from('grupos')
+    .select('id, nombre')
+    .eq('uid_mon', '5d841a66-0baf-44c7-98d1-e4ee8968db6c')
+    .order('nombre', { ascending: true })
   if (error) console.error('Error cargando grupos:', error)
   else groups.value = data || []
 }

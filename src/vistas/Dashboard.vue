@@ -60,6 +60,8 @@ onMounted(async () => {
     const { data, error: err } = await supabase
       .from('grupos')
       .select('id, nombre')
+      .eq('uid_mon', '5d841a66-0baf-44c7-98d1-e4ee8968db6c')
+      .order('nombre', { ascending: true })
 
     console.log("📦 Respuesta supabase:", { data, err })
 
